@@ -1,47 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { REACT_APP_API_KEY } from '@config';
-import axios, { AxiosResponse } from 'axios';
+import React, { useEffect } from 'react';
+import { useMovies } from '@hooks';
 
 const ReactQueryComponent = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const {
+    isSuccess: movieIsSuccess,
+    isLoading: movieIsLoading,
+    isError: movieIsError,
+    data: movieData,
+    error: movieError,
+  } = useMovies();
 
-  const fetchData = useCallback(async () => {
-    try {
-      const response: AxiosResponse = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_KEY}&language=en-US&query=spiderman`
-      );
+  if (movieIsLoading) {
+    return <span>Loading...</span>;
+  }
 
-      if (response.status !== 200) {
-        throw new Error('Unexpected status code: ' + response.status);
-      }
-      setData(response.data.results);
-      setIsLoading(true);
-    } catch (error) {
-      console.error('error occurred', error);
-      setIsLoading(false);
-    }
-  }, []);
+  if (movieIsError) {
+    console.warn('error', movieError);
+    return <span>Error... </span>;
+  }
 
-  useEffect(() => {
-    if (!isLoading) fetchData();
-  }, [isLoading, fetchData]);
+  if (movieIsSuccess && movieData.length === 0) {
+    return <span>There is no data...</span>;
+  }
 
   return (
     <div>
       <h1>Hello React Query!</h1>
 
-      {isLoading ? (
-        <div>
-          {data.slice(0, 5).map((item: any) => (
-            <div key={item.id}>
-              <p>{item.title}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+      {movieData.slice(0, 5).map((item: any) => (
+        <div key={item.id}>{item.title}</div>
+      ))}
     </div>
   );
 };
