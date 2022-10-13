@@ -5,9 +5,8 @@ import { REACT_APP_API_KEY } from '@config';
 import { blurResults, ImovieData, ImovieResults } from '@types';
 import { ParsedUrlQuery } from 'querystring';
 import Error from '../_error';
-import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
-import * as S from './index.styles';
+import MoviePost from '@components/Movie';
 
 interface IMoviePosts {
   errorCode: number | boolean;
@@ -41,32 +40,7 @@ const MoviePosts = ({ errorCode, data, blurData, params }: IMoviePosts) => {
         ></meta>
       </Head>
 
-      <S.MoviePosts>
-        <h1>Hello Movie {params?.name || ' '}</h1>
-
-        <button onClick={() => (location.href = '/movie')}>Back</button>
-
-        <div className="movie-wrap">
-          {blurData?.map((movie) => (
-            <div className="movie" key={movie.id}>
-              <div className="image-wrap">
-                <Image
-                  layout="fill"
-                  src={
-                    movie.backdrop_path
-                      ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
-                      : `https://freesvg.org/img/1645699345cat.png`
-                  }
-                  alt={movie.title}
-                  placeholder="blur"
-                  blurDataURL={movie.blurDataURL}
-                />
-                <span>{movie.title}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </S.MoviePosts>
+      <MoviePost blurData={blurData} />
     </>
   );
 };
