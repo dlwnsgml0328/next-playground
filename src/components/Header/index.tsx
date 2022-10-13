@@ -11,6 +11,9 @@ const Header = () => {
       <li>
         <Link href={'/movie'}>movie</Link>
       </li>
+      <li>
+        <Link href={'/movie/spiderman'}>movie - spiderman (SSG)</Link>
+      </li>
     </S.Header>
   );
 };
