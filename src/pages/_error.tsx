@@ -19,7 +19,11 @@ const Error = ({ errorCode }: IError) => {
           }}
         >
           <div style={{ fontSize: '20px' }}>
-            <p>{errorCode}, Something went wrong. Please check your url!</p>
+            {typeof errorCode === 'number' ? (
+              <p>{errorCode}, Something went wrong. Please check your url!</p>
+            ) : (
+              <p>Oops,Unexpected error</p>
+            )}
 
             <p>
               <button onClick={() => (location.href = '/')}>Home</button>

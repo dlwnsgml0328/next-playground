@@ -108,7 +108,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const posterWithBlurURL = await Promise.all(
     data.results.map(async (movie: ImovieResults) => {
       const { base64 } = await getPlaiceholder(
-        `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        movie.poster_path
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+          : 'https://freesvg.org/img/1645699345cat.png'
       );
       return { ...movie, blurDataURL: base64 };
     })
