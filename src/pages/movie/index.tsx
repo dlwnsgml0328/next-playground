@@ -1,7 +1,17 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 const Movie = () => {
+  const [input, setInput] = useState('');
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      location.href = `/movie/${input}`;
+    },
+    [input]
+  );
   return (
     <>
       <Head>
@@ -10,7 +20,12 @@ const Movie = () => {
       </Head>
 
       <div>
-        <h1>Hello Movie!</h1>
+        <h1>Hello Movie</h1>
+        <form onSubmit={onSubmit}>
+          <input type="search" value={input} onChange={(e) => setInput(e.target.value)} />
+
+          <input type="submit" value="search" />
+        </form>
       </div>
     </>
   );

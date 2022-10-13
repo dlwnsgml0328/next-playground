@@ -1,16 +1,18 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
-
 import { ServerStyleSheet } from 'styled-components';
+
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
     try {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App: any) => (props: any) =>
             sheet.collectStyles(<App {...props} />),
         });
+
       const initialProps = await Document.getInitialProps(ctx);
       return {
         ...initialProps,
@@ -25,12 +27,13 @@ class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html lang="ko">
         <Head>
-          <meta name="title" content="Eazel Migration Dev" />
-          <meta name="description" content="Eazel Migration Dev client" />
+          <meta name="title" content="Next Playground" />
+          <meta name="description" content="Play with Next.js framework!" />
         </Head>
         <body>
           <Main />
@@ -40,4 +43,5 @@ class MyDocument extends Document {
     );
   }
 }
+
 export default MyDocument;

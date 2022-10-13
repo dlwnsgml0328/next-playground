@@ -6,6 +6,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Next Playground Home</title>
+        <meta name="title" content="Next Playground Home" />
         <meta name="description" content="Next Playground Home" />
       </Head>
       <div>
