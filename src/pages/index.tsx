@@ -9,6 +9,7 @@ const Home: NextPage = () => {
         <meta name="title" content="Next Playground Home" />
         <meta name="description" content="Next Playground Home" />
       </Head>
+
       <div>
         <h1>Hello Home</h1>
       </div>
