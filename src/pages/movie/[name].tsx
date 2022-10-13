@@ -7,6 +7,7 @@ import { ParsedUrlQuery } from 'querystring';
 import Error from '../_error';
 import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
+import * as S from './index.styles';
 
 interface IMoviePosts {
   errorCode: number | boolean;
@@ -40,21 +41,17 @@ const MoviePosts = ({ errorCode, data, blurData, params }: IMoviePosts) => {
         ></meta>
       </Head>
 
-      <div>
+      <S.MoviePosts>
         <h1>Hello Movie {params?.name || ' '}</h1>
 
         <button onClick={() => (location.href = '/movie')}>Back</button>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className="movie-wrap">
           {blurData?.map((movie) => (
-            <div
-              style={{ marginTop: 5, display: 'flex', marginRight: 10 }}
-              key={movie.id}
-            >
-              <div style={{ position: 'relative', color: 'white' }}>
+            <div className="movie" key={movie.id}>
+              <div className="image-wrap">
                 <Image
-                  width={250}
-                  height={200}
+                  layout="fill"
                   src={
                     movie.backdrop_path
                       ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
@@ -64,21 +61,12 @@ const MoviePosts = ({ errorCode, data, blurData, params }: IMoviePosts) => {
                   placeholder="blur"
                   blurDataURL={movie.blurDataURL}
                 />
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: 5,
-                    right: 5,
-                    textShadow: '#000 1px 0 10px',
-                  }}
-                >
-                  {movie.title}
-                </span>
+                <span>{movie.title}</span>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </S.MoviePosts>
     </>
   );
 };
