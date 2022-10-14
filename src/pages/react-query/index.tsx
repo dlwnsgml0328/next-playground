@@ -10,6 +10,16 @@ const ReactQueryComponent = () => {
     error: movieError,
   } = useMovies();
 
+  useEffect(() => {
+    console.log('data', movieData);
+  }, [movieData]);
+
+  useEffect(() => {
+    console.log('isLoading', movieIsLoading);
+  }, [movieIsLoading]);
+
+  console.log('useMovies:', useMovies());
+
   if (movieIsLoading) {
     return <span>Loading...</span>;
   }

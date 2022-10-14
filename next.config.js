@@ -6,7 +6,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['freesvg.org', 'image.tmdb.org'],
+    domains: ['freesvg.org', 'image.tmdb.org', 'upload.wikimedia.org'],
     formats: ['image/avif', 'image/webp'],
   },
 };
