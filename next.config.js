@@ -7,7 +7,7 @@ const nextConfig = {
   },
   images: {
     domains: ['freesvg.org', 'image.tmdb.org', 'upload.wikimedia.org'],
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/webp'],
   },
 };
 

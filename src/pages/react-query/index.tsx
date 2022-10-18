@@ -8,7 +8,7 @@ const ReactQueryComponent = () => {
     isError: movieIsError,
     data: movieData,
     error: movieError,
-  } = useMovies();
+  } = useMovies('spiderman');
 
   useEffect(() => {
     console.log('data', movieData);
@@ -18,7 +18,7 @@ const ReactQueryComponent = () => {
     console.log('isLoading', movieIsLoading);
   }, [movieIsLoading]);
 
-  console.log('useMovies:', useMovies());
+  console.log('useMovies:', useMovies('spiderman'));
 
   if (movieIsLoading) {
     return <span>Loading...</span>;

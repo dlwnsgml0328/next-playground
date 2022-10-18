@@ -2,9 +2,8 @@ import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { REACT_APP_API_KEY } from '@config';
 import { blurResults, ImovieData, ImovieResults } from '@types';
-import Error from '../../_error';
+import Error from '@pages/_error';
 import { getPlaiceholder } from 'plaiceholder';
-
 import MoviePost from '@components/Movie';
 
 interface IMoviePosts {

@@ -7,22 +7,39 @@ import { ParsedUrlQuery } from 'querystring';
 import Error from '../_error';
 import { getPlaiceholder } from 'plaiceholder';
 import MoviePost from '@components/Movie';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { useMovies } from '~/hooks';
 
 interface IMoviePosts {
   errorCode: number | boolean;
   data: ImovieData;
   blurData: blurResults[];
-  params: ParsedUrlQuery | undefined;
+  params: ParsedUrlQuery;
 }
 
 const MoviePosts = ({ errorCode, data, blurData, params }: IMoviePosts) => {
-  useEffect(() => {
-    console.log('blurData:', blurData);
-  }, [blurData]);
+  const {
+    isLoading,
+    isSuccess,
+    error,
+    data: movieData,
+  } = useMovies(params.name as string);
 
   useEffect(() => {
-    console.log('data:', data);
-  }, [data]);
+    console.log('- query isLoading: ', isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    console.log('- query isSuccess: ', isSuccess);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    console.log('- query error: ', error);
+  }, [error]);
+
+  useEffect(() => {
+    console.log('- query movieData: ', movieData);
+  }, [movieData]);
 
   if (errorCode !== false) {
     return <Error errorCode={errorCode} />;
@@ -49,6 +66,11 @@ export default MoviePosts;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // console.log('context:', context);
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['movies'], () => context.params?.name);
+
+  console.log('- queryClient:', queryClient);
 
   const res = await fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_KEY}&language=en-US&query=${context.params?.name}`
@@ -80,5 +102,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // console.log('- posterWithBlurURL:', posterWithBlurURL);
 
-  return { props: { errorCode, data, blurData: posterWithBlurURL, params } };
+  return {
+    props: {
+      errorCode,
+      data,
+      blurData: posterWithBlurURL,
+      params,
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
