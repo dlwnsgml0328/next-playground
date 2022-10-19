@@ -5,9 +5,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Next Playground Home</title>
-        <meta name="title" content="Next Playground Home" />
-        <meta name="description" content="Next Playground Home" />
+        <title>Home</title>
+        <meta name="description" content="Eazel Home" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          property="og:image"
+          content="https://d28btnt2z9x7nc.cloudfront.net/static/logo/melting_logo.png"
+        />
       </Head>
 
       <div>

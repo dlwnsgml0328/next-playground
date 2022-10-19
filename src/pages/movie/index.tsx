@@ -15,8 +15,14 @@ const Movie = () => {
   return (
     <>
       <Head>
-        <title>Next Movie</title>
-        <meta name="description" content="Next Movie" />
+        <title>Next | Movie</title>
+        <meta name="title" content="Next | Movie" />
+        <meta name="description" content="This is a Next Movie" />
+
+        <meta
+          property="og:image"
+          content="https://d28btnt2z9x7nc.cloudfront.net/static/logo/logo_2.png"
+        />
       </Head>
 
       <div>
