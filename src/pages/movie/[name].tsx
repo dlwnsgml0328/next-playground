@@ -17,6 +17,13 @@ const MoviePosts = ({ params }: IMoviePosts) => {
     data: movieData,
   } = useQuery([`${params.name as string}`], () => fetchFucMovies(`${params.name}`));
 
+  const {
+    isLoading: isLoading2,
+    isSuccess: isSuccess2,
+    error: error2,
+    data: movieData2,
+  } = useQuery([`${params.name as string}2`], () => fetchFucMovies(`${params.name}2`));
+
   useEffect(() => {
     console.log('- query isLoading: ', isLoading);
   }, [isLoading]);
@@ -32,6 +39,22 @@ const MoviePosts = ({ params }: IMoviePosts) => {
   useEffect(() => {
     console.log('- query movieData: ', movieData);
   }, [movieData]);
+
+  useEffect(() => {
+    console.log('- query isLoading2:', isLoading2);
+  }, [isLoading2]);
+
+  useEffect(() => {
+    console.log('- query isSuccess2:', isSuccess2);
+  }, [isSuccess2]);
+
+  useEffect(() => {
+    console.log('- query error2:', error2);
+  }, [error2]);
+
+  useEffect(() => {
+    console.log('- query movieData2: ', movieData2);
+  }, [movieData2]);
 
   return (
     <>
@@ -61,9 +84,14 @@ export default MoviePosts;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery([`${context.params?.name}`], () =>
-    fetchFucMovies(`${context.params?.name}`)
-  );
+  await Promise.all([
+    queryClient.prefetchQuery([`${context.params?.name}`], () =>
+      fetchFucMovies(`${context.params?.name}`)
+    ),
+    queryClient.prefetchQuery([`${context.params?.name}2`], () =>
+      fetchFucMovies(`${context.params?.name}2`)
+    ),
+  ]);
 
   return {
     props: { dehydratedState: dehydrate(queryClient), params: context.params },
