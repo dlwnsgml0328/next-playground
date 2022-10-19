@@ -26,8 +26,8 @@ const MoviePost = ({ blurData }: IMoviePost) => {
                     : `https://freesvg.org/img/1645699345cat.png`
                 }
                 alt={movie.title}
-                placeholder="blur"
-                blurDataURL={movie.blurDataURL}
+                // placeholder="blur"
+                // blurDataURL={movie.backdrop_path}
               />
               <span>{movie.title}</span>
             </div>

@@ -15,7 +15,7 @@ const fetchMovies = async (name: string) => {
 };
 
 const useMovies = (name: string) => {
-  return useQuery(['movies'], () => fetchMovies(name));
+  return useQuery([`${name}`], () => fetchMovies(name));
 };
 
 export { useMovies };

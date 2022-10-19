@@ -15,15 +15,26 @@ interface IMoviePosts {
   data: ImovieData;
   blurData: blurResults[];
   params: ParsedUrlQuery;
+  dehydratedState: any;
 }
 
-const MoviePosts = ({ errorCode, data, blurData, params }: IMoviePosts) => {
+const MoviePosts = ({
+  errorCode,
+  data,
+  blurData,
+  params,
+  dehydratedState,
+}: IMoviePosts) => {
   const {
     isLoading,
     isSuccess,
     error,
     data: movieData,
   } = useMovies(params.name as string);
+
+  useEffect(() => {
+    console.log('dehydratedState: ', dehydratedState);
+  }, [dehydratedState]);
 
   useEffect(() => {
     console.log('- query isLoading: ', isLoading);
@@ -68,7 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // console.log('context:', context);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['movies'], () => context.params?.name);
+  await queryClient.prefetchQuery(['movies'], () => useMovies);
 
   console.log('- queryClient:', queryClient);
 
@@ -87,8 +98,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const data: ImovieData = await res.json();
 
-  // console.log('- data.results:', data.results);
-
   const posterWithBlurURL = await Promise.all(
     data.results.map(async (movie: ImovieResults) => {
       const { base64 } = await getPlaiceholder(
@@ -99,8 +108,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       return { ...movie, blurDataURL: base64 };
     })
   );
-
-  // console.log('- posterWithBlurURL:', posterWithBlurURL);
 
   return {
     props: {
