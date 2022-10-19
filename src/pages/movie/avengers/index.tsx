@@ -19,13 +19,13 @@ const fetchMovies = async (name: string) => {
 };
 
 const Avengers = () => {
-  const { data, isSuccess, isLoading, isError } = useQuery(['avengers'], () =>
+  const { data, isSuccess, isLoading, isError, status } = useQuery(['avengers'], () =>
     fetchMovies('avengers')
   );
 
   useEffect(() => {
-    console.log('isLoading', isLoading);
-  }, [isLoading]);
+    console.log('- status changed:', status);
+  }, [status]);
 
   useEffect(() => {
     if (isSuccess && data) console.log('data:', data);
@@ -35,7 +35,7 @@ const Avengers = () => {
 
   if (isError) return <div>Error Occured!</div>;
 
-  if (!data && !isLoading) return <div>There is no data...</div>;
+  if (!data) return <div>There is no data...</div>;
 
   return (
     <>
