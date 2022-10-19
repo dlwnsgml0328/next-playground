@@ -29,12 +29,12 @@ const Test = () => {
         />
       </div>
 
-      <div>
+      {/* <div>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Mandelbrot_set_5000px.png"
           alt="image"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
