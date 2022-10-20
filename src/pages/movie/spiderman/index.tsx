@@ -1,10 +1,11 @@
-import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { REACT_APP_API_KEY } from '@config';
 import { blurResults, ImovieData, ImovieResults } from '@types';
 import Error from '@pages/_error';
 import { getPlaiceholder } from 'plaiceholder';
 import MoviePost from '@components/Movie';
+import HeadMeta from '~/components/HeadMeta';
+import { useRouter } from 'next/router';
 
 interface IMoviePosts {
   errorCode: number | boolean;
@@ -13,13 +14,7 @@ interface IMoviePosts {
 }
 
 const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
-  useEffect(() => {
-    console.log('blurData:', blurData);
-  }, [blurData]);
-
-  useEffect(() => {
-    console.log('data:', data);
-  }, [data]);
+  const router = useRouter();
 
   if (errorCode !== false) {
     return <Error errorCode={errorCode} />;
@@ -29,10 +24,12 @@ const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
 
   return (
     <>
-      <Head>
-        <title>Movie | Spiderman</title>
-        <meta name="description" content="Movie | Spiderman"></meta>
-      </Head>
+      <HeadMeta
+        title="Movie | Spiderman"
+        description="The results are all about the spiderman"
+        url={`https://next-playground-kappa.vercel.app${router.pathname}`}
+        image={`https://image.tmdb.org/t/p/w500${blurData[0].backdrop_path}`}
+      />
 
       <MoviePost blurData={blurData} />
     </>

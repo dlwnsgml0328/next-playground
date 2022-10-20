@@ -10,8 +10,6 @@ interface IMoviePost {
 const MoviePost = ({ blurData }: IMoviePost) => {
   return (
     <S.MoviePosts>
-      <h1>Hello Movie Spiderman</h1>
-
       <button onClick={() => (location.href = '/movie')}>Back</button>
 
       <div className="movie-wrap">

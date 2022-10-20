@@ -1,7 +1,9 @@
-import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react';
+import HeadMeta from '~/components/HeadMeta';
 
 const Movie = () => {
+  const router = useRouter();
   const [input, setInput] = useState('');
 
   const onSubmit = useCallback(
@@ -14,16 +16,12 @@ const Movie = () => {
   );
   return (
     <>
-      <Head>
-        <title>Next | Movie</title>
-        <meta name="title" content="Next | Movie" />
-        <meta name="description" content="This is a Next Movie" />
-
-        <meta
-          property="og:image"
-          content="https://d28btnt2z9x7nc.cloudfront.net/static/logo/logo_2.png"
-        />
-      </Head>
+      <HeadMeta
+        title="movie search"
+        description="you guys can search movie"
+        image=""
+        url={`https://next-playground-kappa.vercel.app${router.pathname}`}
+      />
 
       <div>
         <h1>Hello Movie</h1>
