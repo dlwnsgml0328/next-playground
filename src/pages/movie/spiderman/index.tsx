@@ -5,7 +5,6 @@ import Error from '@pages/_error';
 import { getPlaiceholder } from 'plaiceholder';
 import MoviePost from '@components/Movie';
 import HeadMeta from '~/components/HeadMeta';
-import { useRouter } from 'next/router';
 
 interface IMoviePosts {
   errorCode: number | boolean;
@@ -14,8 +13,6 @@ interface IMoviePosts {
 }
 
 const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
-  const router = useRouter();
-
   if (errorCode !== false) {
     return <Error errorCode={errorCode} />;
   }
@@ -27,7 +24,7 @@ const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
       <HeadMeta
         title="Movie | Spiderman"
         description="The results are all about the spiderman"
-        url={`https://next-playground-kappa.vercel.app${router.pathname}`}
+        url={`https://next-playground-kappa.vercel.app/spiderman`}
         image={`https://image.tmdb.org/t/p/w500${blurData[0].backdrop_path}`}
       />
 

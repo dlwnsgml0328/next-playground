@@ -1,9 +1,7 @@
-import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react';
 import HeadMeta from '~/components/HeadMeta';
 
 const Movie = () => {
-  const router = useRouter();
   const [input, setInput] = useState('');
 
   const onSubmit = useCallback(
@@ -20,7 +18,7 @@ const Movie = () => {
         title="movie search"
         description="you guys can search movie"
         image=""
-        url={`https://next-playground-kappa.vercel.app${router.pathname}`}
+        url={`https://next-playground-kappa.vercel.app/movie`}
       />
 
       <div>

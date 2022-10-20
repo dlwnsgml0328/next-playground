@@ -1,9 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
-import Head from 'next/head';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import HeadMeta from '~/components/HeadMeta';
-import { useRouter } from 'next/router';
 import { blurResults, ImovieData, ImovieResults } from '~/types';
 import { getPlaiceholder } from 'plaiceholder';
 import { REACT_APP_API_KEY } from '~/config';
@@ -17,20 +15,10 @@ interface IMoviePosts {
 }
 
 const MoviePosts = ({ errorCode, blurData, params }: IMoviePosts) => {
-  const router = useRouter();
-
   if (errorCode !== false) return <Error errorCode={errorCode} />;
 
   return (
     <>
-      <Head>
-        <title>{params?.name ? `Movie | ${params?.name}` : `Movie`}</title>
-        <meta
-          name="description"
-          content={params?.name ? `Movie ${params?.name}` : `Movie`}
-        ></meta>
-      </Head>
-
       <HeadMeta
         title={`Movie | ${params?.name}`}
         description={`${params?.name}에 대한 검색 결과입니다.`}
