@@ -12,6 +12,8 @@ interface IMoviePosts {
   blurData: blurResults[];
 }
 
+const random = Math.floor(Math.random() * 5 + 1);
+
 const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
   if (errorCode !== false) {
     return <Error errorCode={errorCode} />;
@@ -25,7 +27,7 @@ const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
         title="Movie | Spiderman"
         description="The results are all about the spiderman"
         url={`https://next-playground-kappa.vercel.app/spiderman`}
-        image={`https://image.tmdb.org/t/p/w500${blurData[0].backdrop_path}`}
+        image={`https://image.tmdb.org/t/p/w500${blurData[random || 0].backdrop_path}`}
       />
 
       <MoviePost blurData={blurData} />
