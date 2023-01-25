@@ -5,6 +5,9 @@ import Error from '@pages/_error';
 import { getPlaiceholder } from 'plaiceholder';
 import MoviePost from '@components/Movie';
 import HeadMeta from '~/components/HeadMeta';
+import { useLatestMovies, useMovies } from '~/hooks';
+import MovieLoading from '~/components/MovieLoading';
+import MovieDone from '~/components/MovieDone';
 
 interface IMoviePosts {
   errorCode: number | boolean;
@@ -15,6 +18,8 @@ interface IMoviePosts {
 const random = Math.floor(Math.random() * 5 + 1);
 
 const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
+  const queryMovieData = useLatestMovies();
+
   if (errorCode !== false) {
     return <Error errorCode={errorCode} />;
   }
@@ -31,6 +36,14 @@ const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
       />
 
       <MoviePost blurData={blurData} />
+
+      <h1>Top Rated</h1>
+
+      {queryMovieData.status === 'loading' && <MovieLoading />}
+      {queryMovieData.status === 'error' && <h1>Error</h1>}
+      {queryMovieData.status === 'success' && queryMovieData.data && (
+        <MovieDone movieData={queryMovieData.data} />
+      )}
     </>
   );
 };
