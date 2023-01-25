@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { REACT_APP_API_KEY } from '~/config';
 
 const fetchMovies = async (name: string) => {
@@ -19,23 +19,11 @@ const fetchMovies = async (name: string) => {
 };
 
 const Avengers = () => {
-  const { data, isSuccess, isLoading, isError, status } = useQuery(['avengers'], () =>
-    fetchMovies('avengers')
-  );
+  const { data, status } = useQuery(['avengers'], () => fetchMovies('avengers'));
 
-  useEffect(() => {
-    console.log('- status changed:', status);
-  }, [status]);
-
-  useEffect(() => {
-    if (isSuccess && data) console.log('data:', data);
-  }, [isSuccess, data]);
-
-  if (isLoading) return <div>Loading...</div>;
-
-  if (isError) return <div>Error Occured!</div>;
-
-  if (!data) return <div>There is no data...</div>;
+  if (status === 'loading') return <div>Loading...</div>;
+  if (status === 'error') return <div>Error Occured!</div>;
+  if (status === 'success' && !data) return <div>There is no data...</div>;
 
   return (
     <>

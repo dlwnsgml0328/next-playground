@@ -14,6 +14,7 @@ const HeadMeta = ({ title, description, url, image }: HeadMeta) => {
       <meta name="description" content={description || 'next wave'} />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
+      <meta property="og:description" content={description || 'next wave'} />
       <meta property="og:title" content={title || 'next'} />
       <meta property="og:type" content="website" />
       <meta

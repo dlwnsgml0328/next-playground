@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useMovies } from '@hooks';
 
 const ReactQueryComponent = () => {
@@ -9,16 +9,6 @@ const ReactQueryComponent = () => {
     data: movieData,
     error: movieError,
   } = useMovies('spiderman');
-
-  useEffect(() => {
-    console.log('data', movieData);
-  }, [movieData]);
-
-  useEffect(() => {
-    console.log('isLoading', movieIsLoading);
-  }, [movieIsLoading]);
-
-  console.log('useMovies:', useMovies('spiderman'));
 
   if (movieIsLoading) {
     return <span>Loading...</span>;
@@ -37,7 +27,7 @@ const ReactQueryComponent = () => {
     <div>
       <h1>Hello React Query!</h1>
 
-      {movieData.slice(0, 5).map((item: any) => (
+      {movieData.map((item: any) => (
         <div key={item.id}>{item.title}</div>
       ))}
     </div>
