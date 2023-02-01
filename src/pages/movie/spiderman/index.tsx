@@ -28,6 +28,8 @@ const MoviePosts = ({ errorCode, data, blurData }: IMoviePosts) => {
 
   return (
     <>
+      <button onClick={() => alert('Hey!')}>Hey</button>
+
       <HeadMeta
         title="Movie | Spiderman"
         description="The results are all about the spiderman"
